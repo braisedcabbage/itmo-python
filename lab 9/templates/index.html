@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" class="note-form">
+            <textarea name="note_text" placeholder="Введите текст заметки..." required></textarea>
+            <div class="form-controls">
+                <label>
+                    <input type="checkbox" name="note_important">
+                    Важная заметка
+                </label>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+
+        <div class="notes-list">
+            {% for note in notes %}
+                <div class="note {% if note.important %}important{% endif %}">
+                    <p>{{ note.text }}</p>
+                    <a href="{{ url_for('delete_note', id=note.id) }}" class="delete-btn">Удалить</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
